@@ -4,6 +4,12 @@ Este é um sistema de agendamento de transferências financeiras desenvolvido co
 
 ## Tecnologias Utilizadas
 
+- **URL-FRONTEND**:
+
+```bash
+https://github.com/fortunecapitalizacoes/agendamentodetransacoes-frontend
+```
+	
 - **Back-end**:
   - **Spring Boot 3.4.3** (Java 11)
   - **Spring Data JPA** (para persistência em banco de dados H2)
