@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: agendamentodetransacoes
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /doc.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
