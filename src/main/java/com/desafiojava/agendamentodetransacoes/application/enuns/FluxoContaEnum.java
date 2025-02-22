@@ -1,4 +1,4 @@
-package com.desafiojava.agendamentodetransacoes.application;
+package com.desafiojava.agendamentodetransacoes.application.enuns;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

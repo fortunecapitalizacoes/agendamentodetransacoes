@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
+import com.desafiojava.agendamentodetransacoes.application.enuns.StatusEnum;
+
 /**
  * Representa a resposta de um agendamento de transferência financeira.
  * 
@@ -74,5 +76,5 @@ public class AgendamentoResponse {
      * 
      * Indica o estado do agendamento (ex.: "AGENDADO", "CONCLUÍDO", etc.).
      */
-    private String status;
+    private StatusEnum status;
 }

@@ -3,6 +3,7 @@ package com.desafiojava.agendamentodetransacoes.infra.database;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.desafiojava.agendamentodetransacoes.application.enuns.StatusEnum;
 import com.desafiojava.agendamentodetransacoes.domain.model.Agendamento;
 
 import java.math.BigInteger;
@@ -33,7 +34,7 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> 
      * @param status O status dos agendamentos a ser filtrado.
      * @return Lista de {@link Agendamento} com o status fornecido.
      */
-    List<Agendamento> findByStatus(String status);
+    List<Agendamento> findByStatus(StatusEnum status);
 
     /**
      * Retorna uma lista de agendamentos com contas de origem e destino específicas.

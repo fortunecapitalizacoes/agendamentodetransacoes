@@ -1,9 +1,12 @@
 package com.desafiojava.agendamentodetransacoes.domain;
 
 import com.desafiojava.agendamentodetransacoes.application.AgendamentoApplication;
-import com.desafiojava.agendamentodetransacoes.application.FluxoContaEnum;
+import com.desafiojava.agendamentodetransacoes.application.enuns.FluxoContaEnum;
+import com.desafiojava.agendamentodetransacoes.application.enuns.StatusEnum;
+import com.desafiojava.agendamentodetransacoes.application.exceptions.DataCancelamentoInvalidoException;
 import com.desafiojava.agendamentodetransacoes.application.exceptions.DataInvalidoException;
 import com.desafiojava.agendamentodetransacoes.application.exceptions.NumeroInvalidoException;
+import com.desafiojava.agendamentodetransacoes.application.exceptions.TaxaInvalidoException;
 import com.desafiojava.agendamentodetransacoes.application.exceptions.ValorTransacaoInvalidoException;
 import com.desafiojava.agendamentodetransacoes.domain.model.Agendamento;
 import com.desafiojava.agendamentodetransacoes.infra.database.AgendamentoRepository;
@@ -42,7 +45,7 @@ public class AgendamentoDomain {
     public AgendamentoResponse agendarTransacao(AgendamentoRequest request) {
         validaNumerodaConta(request.getContaOrigem(), FluxoContaEnum.ORIGEM);
         validaNumerodaConta(request.getContaDestino(), FluxoContaEnum.DESTINO);
-        validaDataTransferencia(request.getDataTransferencia());
+       // validaDataTransferencia(request.getDataTransferencia());
         validaValorTransferencia(request.getValor());
 
         LocalDate dataAgendamento = LocalDate.now();
@@ -50,7 +53,7 @@ public class AgendamentoDomain {
         long diasDiferenca = ChronoUnit.DAYS.between(dataAgendamento, dataTransferencia);
 
         BigDecimal taxa = calcularTaxa(request.getValor(), diasDiferenca)
-                .orElseThrow(() -> new IllegalArgumentException("Nenhuma taxa aplicável. Transferência não permitida."));
+                .orElseThrow(() -> new TaxaInvalidoException("Nenhuma taxa aplicável. Transferência não permitida."));
 
         Agendamento agendamento = Agendamento.builder()
                 .contaOrigem(request.getContaOrigem())
@@ -59,7 +62,7 @@ public class AgendamentoDomain {
                 .taxa(taxa)
                 .dataTransferencia(dataTransferencia)
                 .dataAgendamento(dataAgendamento)
-                .status("AGENDADO")
+                .status(StatusEnum.AGENDADO)
                 .build();
 
         Agendamento agendamentoSalvo = agendamentoRepository.save(agendamento);
@@ -109,6 +112,19 @@ public class AgendamentoDomain {
         return agendamentoRepository.findAll();
     }
 
+    public Agendamento cancelarAgendamento(Long idAgendamento) {
+    	var agendamentoDB = agendamentoRepository.findById(idAgendamento).get();
+    	validarCancelamento(agendamentoDB);
+    	agendamentoDB.setStatus(StatusEnum.CANCELADO);
+    	return agendamentoRepository.save(agendamentoDB);
+    }
+    
+    public void validarCancelamento(Agendamento agendamento) {
+    	if(!application.verificaSeDataCancelamentoEstaAntesDaTransferencia(LocalDate.now().toString(), agendamento.getDataTransferencia().toString())) {
+    		 throw new DataCancelamentoInvalidoException("A data da transferência deve ser maior que hoje.");
+    	}
+    }
+    
     /**
      * Verifica se o número fornecido possui exatamente 10 dígitos. Lança uma exceção se inválido.
      *
@@ -146,4 +162,5 @@ public class AgendamentoDomain {
             throw new ValorTransacaoInvalidoException("O valor da transação deve ser maior que zero.");
         }
     }
+    
 }

@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
+import com.desafiojava.agendamentodetransacoes.application.enuns.StatusEnum;
+
 /**
  * Representa um agendamento de transferência financeira no sistema.
  * 
@@ -75,5 +77,5 @@ public class Agendamento {
      * Pode ser "AGENDADO", "EXECUTADO", entre outros status possíveis.
      */
     @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    private StatusEnum status;
 }

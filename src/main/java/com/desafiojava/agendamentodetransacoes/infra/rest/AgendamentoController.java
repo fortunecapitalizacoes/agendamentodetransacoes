@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.desafiojava.agendamentodetransacoes.domain.AgendamentoDomain;
 import com.desafiojava.agendamentodetransacoes.infra.rest.request.AgendamentoRequest;
+import com.desafiojava.agendamentodetransacoes.infra.rest.request.CancelarAgendamentoRequest;
 import com.desafiojava.agendamentodetransacoes.infra.rest.response.AgendamentoResponse;
 
 /**
@@ -57,4 +58,24 @@ public class AgendamentoController {
     public ResponseEntity<?> listarAgendamentos() {
         return ResponseEntity.ok(domain.listarAgendamento());
     }
+    
+    
+    /**
+     * Cancelar um agendamento de transação.
+     * 
+     * Este endpoint cancela um agendamento de transferência de acordo com o id fornecido.
+     *
+     * @param request O id do agendamento a ser cancelado.
+     * @return A resposta informando se o agendamento foi cancelado.
+     */
+    @PostMapping("/cancelar")
+    @Operation(summary = "Cancelar uma nova transação", 
+               description = "Cria um novo agendamento de transferência entre contas de origem e destino.")
+    public ResponseEntity<?> cancelarTransacao(
+            @Parameter(description = "Dados do agendamento a ser criado") 
+            @RequestBody CancelarAgendamentoRequest request) {
+        domain.cancelarAgendamento(request.getIdAgendamento());
+        return ResponseEntity.ok("Agendamento cancelado");
+    }
+    
 }
