@@ -1,19 +1,15 @@
 # Sistema de Agendamento de Transferências Financeiras
 
-Este é um sistema de agendamento de transferências financeiras desenvolvido com **Spring Boot** no back-end e **Angular** no front-end. O sistema permite que os usuários agendem transferências financeiras entre contas, calculem automaticamente taxas de transferência com base na data e visualizem o extrato de agendamentos realizados.
+Este é um sistema de agendamento de transferências financeiras desenvolvido com **Spring Boot** no back-end. O sistema permite que os usuários agendem transferências financeiras entre contas, calculem automaticamente taxas de transferência com base na data e visualizem o extrato de agendamentos realizados.
 
 ## Tecnologias Utilizadas
 
 - **Back-end**:
-  - **Spring Boot 2.7.x** (Java 11)
+  - **Spring Boot 3.4.3** (Java 11)
   - **Spring Data JPA** (para persistência em banco de dados H2)
   - **Swagger/OpenAPI 3** (para documentação da API)
   - **Lombok** (para simplificar o código)
   - **JUnit 5** (para testes unitários)
-
-- **Front-end**:
-  - **Angular 15**
-  - **Bootstrap** (para estilização)
   
 - **Banco de Dados**:
   - **H2 Database** (banco de dados em memória)
