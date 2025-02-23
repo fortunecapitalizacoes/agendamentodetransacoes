@@ -46,11 +46,11 @@ Para rodar a aplicação Spring Boot, basta executar o seguinte comando:
 ./mvnw spring-boot:run
 ```
 
-A aplicação será iniciada no endereço http://localhost:8080.
+A aplicação será iniciada no endereço http://localhost:8080/api.
 
 ### 3. Acessando o Swagger
 
-A documentação do Swagger estará disponível no seguinte endereço: http://localhost:8080/doc.html.
+A documentação do Swagger estará disponível no seguinte endereço: http://localhost:8080/api/doc.html.
 
 
 ## Pontos de Melhoria
